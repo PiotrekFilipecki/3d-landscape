@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import logo from './logo.svg';
+import { Canvas, Dom } from "react-three-fiber";
 import './App.css';
 
+import Controls from "./components/Controls";
+import Scene from './components/Scene';
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+      <Canvas
+        camera={{ zoom: 40, position: [0, 0, 500] }} 
+      >
+          <Suspense
+            fallback={
+              <Dom
+                center
+                className="loading"
+                children="Loading..."
+              /> 
+            }
+          >
+            <Controls />
+            <Scene /> 
+          </Suspense>
+      </Canvas>
+    );
 }
 
 export default App;
